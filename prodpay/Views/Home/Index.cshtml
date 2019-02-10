@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ProdPay.Models.ProductModel>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Shopping Store</h1>
+    <p class="lead">Buy more products using online payment.</p>
+    <p>@Html.ActionLink("Manage Products", "Index", "Products", null, new { @class= "btn btn-primary btn-lg" })</p>
+    </p>
+</div>
+
+
+@{int i = 0;}
+@{double amt = 0;}
+@foreach (var item in Model)
+{
+    amt = 100 * item.ProductPrice; 
+    if (i % 3 == 0)
+    {
+        @Html.Raw("<div class='row'>");
+    }
+
+    <div class="col-md-4">
+        <h2>@Html.DisplayFor(modelItem => item.ProductName)</h2>
+        <p>@Html.DisplayFor(modelItem => item.ProductDescription)</p>
+        <p>Price:@Html.DisplayFor(modelItem => item.ProductPrice)</p>
+        <p>@Html.ActionLink("Learn more", "Details", "Products", new { id = item.ProductID }, new { @class = "btn btn-default" })</p>
+        <form action="/your-charge-code" method="POST">
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_wHSnAxGvXg823aRUed7k4gXt"
+                    data-amount="@amt"
+                    data-name="Don"
+                    data-description="Widget"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto"
+                    data-currency="cad">
+            </script>
+        </form>
+    </div>
+
+    if (i % 3 == 2){
+        @Html.Raw("</div>");
+    }
+    i++;
+}
+

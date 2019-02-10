@@ -1,0 +1,26 @@
+﻿@using System.Configuration
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetDataPaypal</title>
+</head>
+<body>
+    <div>
+        Checkout Paypal Success !^^
+    </div>
+    <br />
+    <form action="@ConfigurationManager.AppSettings["urlSubmitPayment"]" method="POST">
+        <input type="hidden" name="cmd" value="_notify-synch">
+        <input type="text" name="tx" value="@ViewBag.tx">
+        <input type="text" name="at" value="@ConfigurationManager.AppSettings["Token"]">
+        <input type="submit" value="Get Data" class="btn btn-primary">
+    </form>
+</body>
+</html>
